@@ -1,14 +1,22 @@
 package bytes.smart.ingdirectpay.views;
 
 import android.content.Context;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import bytes.smart.ingdirectpay.R;
 import bytes.smart.ingdirectpay.interfaces.mvc.OnChangeListener;
+import bytes.smart.ingdirectpay.managers.AccountsManager;
 import bytes.smart.ingdirectpay.models.TransactionModel;
+import bytes.smart.ingdirectpay.utils.IBANUtils;
+import bytes.smart.ingdirectpay.utils.StringUtils;
 import bytes.smart.ingdirectpay.utils.ViewUtils;
 
 /**
@@ -20,6 +28,15 @@ public class TransactionLayout extends RelativeLayout implements OnChangeListene
 
     private TransactionModel model;
     private ViewListener viewListener;
+
+    private AutoCompleteTextView accountAutoCompleteTextView;
+    private EditText sumEditText;
+    private EditText explanationEditText;
+    private TextInputLayout accountAutoCompleteTextInputLayout;
+    private TextInputLayout sumTextInputLayout;
+    private TextInputLayout explanationTextInputLayout;
+
+    private AccountsAdapter accountsAdapter;
 
     private Toolbar toolbar;
 
@@ -50,13 +67,80 @@ public class TransactionLayout extends RelativeLayout implements OnChangeListene
 
     private void initLayout()
     {
+        accountAutoCompleteTextInputLayout = (TextInputLayout) findViewById(R.id.activity_transaction_account_textinputlayout);
+        accountAutoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.activity_transaction_account_autocompletetextview);
+        accountAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                getViewListener().saveDataToModel();
+                updateView();
+            }
+        });
+        accountsAdapter = new AccountsAdapter(getContext(), AccountsManager.getAccountsManager().getAccounts());
+        accountAutoCompleteTextView.setAdapter(accountsAdapter);
 
+        sumTextInputLayout = (TextInputLayout) findViewById(R.id.activity_transaction_sum_textinputlayout);
+        sumEditText = (EditText) findViewById(R.id.activity_transaction_sum_edittext);
+
+        explanationTextInputLayout = (TextInputLayout) findViewById(R.id.activity_transaction_explanation_textinputlayout);
+        explanationEditText = (EditText) findViewById(R.id.activity_transaction_explanation_edittext);
     }
 
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.activity_transaction_toolbar);
         ((AppCompatActivity)getContext()).setSupportActionBar(toolbar);
-        ViewUtils.setActionBarTitle(getContext(), "", false);
+        ViewUtils.setActionBarTitle(getContext(), "New Transaction", true);
+    }
+
+    public String getAccount()
+    {
+        return StringUtils.trimStartEnd(accountAutoCompleteTextView.getText().toString());
+    }
+
+    public String getSum()
+    {
+        return StringUtils.trimStartEnd(sumEditText.getText().toString());
+    }
+
+    public String getExplanation()
+    {
+        return StringUtils.trimStartEnd(explanationEditText.getText().toString());
+    }
+
+    public boolean validateInput() {
+        boolean ok = true;
+
+        if (getAccount().length() == 0) {
+            ok = false;
+            accountAutoCompleteTextInputLayout.setError("Can't be empty!");
+        }
+        else {
+            if(!IBANUtils.validateIBAN(getAccount())){
+                accountAutoCompleteTextInputLayout.setError("IBAN is invalid!");
+            }
+        }
+
+        if (getSum().length() == 0) {
+            ok = false;
+            sumTextInputLayout.setError("Can't be empty!");
+        } else {
+            try {
+                double sum = Double.parseDouble(getSum());
+                if (sum <= 0) {
+                    sumTextInputLayout.setError("Sum can't be empty!");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                sumTextInputLayout.setError("Number not valid!");
+            }
+        }
+
+        if (getExplanation().length() == 0) {
+            ok = false;
+            explanationTextInputLayout.setError("Can't be empty!");
+        }
+
+        return ok;
     }
 
     private void updateView() {
