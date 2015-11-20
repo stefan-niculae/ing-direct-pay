@@ -1,11 +1,12 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * Sample ING Home Bank with Diret Pay feature
+ * https://24hcoding.com/team/ing-direct-pay
  */
 'use strict';
 
 var React = require('react-native');
 var MainPage = require('./MainPage.js');
+var PaymentForm = require('./PaymentForm');
 
 var {
   AppRegistry,
@@ -15,7 +16,6 @@ var {
   Image,
   TextInput,
   TouchableHighlight,
-  TextInput
 } = React;
 var BarcodeScanner = require('react-native-barcodescanner');
 
@@ -138,36 +138,6 @@ var PaymentFormFromQRCode = React.createClass({
   }
 });
 
-var PaymentForm = React.createClass({
-  propTypes: {
-    receiverName: React.PropTypes.string.isRequired,
-    iban: React.PropTypes.string.isRequired,
-    amount: React.PropTypes.number.isRequired,
-    details: React.PropTypes.string.isRequired
-  },
-  getInitialState: function() {
-    return {
-      receiverName: this.props.receiverName,
-      iban: this.props.iban,
-      amount: this.props.amount,
-      details: this.props.details
-    };
-  },
-  render: function() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Payment Form</Text>
-        <View style={styles.formLine}>
-          <Text style={styles.formLabel}>Nume</Text>
-          <TextInput style={styles.formInput}
-            onChange={(text)=>this.setState({receiverName: text})}
-            value={this.state.receiverName}/>
-        </View>
-      </View>
-    );
-  }
-});
-
 var styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -206,14 +176,6 @@ var styles = StyleSheet.create({
   highlight: {
     margin: 15,
   },
-  formLine: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-    alignItems: 'flex-start'
-  },
-  formInput: {fontSize: 20, height: 40, width: 180},
-  formLabel: {fontSize: 20, borderColor: 'gray', borderWidth: 1, textAlign: 'center', flex: 1}
 });
 
 AppRegistry.registerComponent('HomeBankPay', () => HomeBankPay);
