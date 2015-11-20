@@ -11,23 +11,26 @@ var {
   Text,
   View,
 } = React;
+var BarcodeScanner = require('react-native-barcodescanner');
 
 var HomeBankPay = React.createClass({
+    getInitialState: function() {
+	return {
+	    torchMode: 'off',
+	    cameraType: 'back'
+	};
+    },
   render: function() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      return (
+	      <BarcodeScanner onBarCodeRead={this._onBarCodeRead}
+	  style={{ flex: 1 }}
+	  torchMode={this.state.torchMode}
+	  cameraType={this.state.cameraType} />
     );
-  }
+  },
+    _onBarCodeRead(e) {
+	console.log(e);
+    }
 });
 
 var styles = StyleSheet.create({
