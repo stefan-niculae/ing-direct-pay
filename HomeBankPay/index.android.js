@@ -14,23 +14,45 @@ var {
 var BarcodeScanner = require('react-native-barcodescanner');
 
 var HomeBankPay = React.createClass({
-    getInitialState: function() {
-	return {
-	    torchMode: 'off',
-	    cameraType: 'back'
-	};
-    },
+  getInitialState: function() {
+    return {
+      currentView: "login"
+    }
+  },
+  login: function() {
+    return <View style={styles.container}>
+        <Text style={styles.welcome}>Home Bank with Direct Pay</Text>
+      </View>;
+  },
+  readQrCode: function() {
+    return <ReadQRCode/>;
+  },
+  render: function() {
+    return this[this.state.currentView]();
+  },
+  _onBarCodeRead(e) {
+	  console.log(e);
+  }
+});
+
+var ReadQRCode = React.createClass({
+  getInitialState: function() {
+    return {
+        torchMode: 'off',
+        cameraType: 'back'
+    };
+  },
   render: function() {
       return (
-	      <BarcodeScanner onBarCodeRead={this._onBarCodeRead}
-	  style={{ flex: 1 }}
-	  torchMode={this.state.torchMode}
-	  cameraType={this.state.cameraType} />
-    );
+	      <BarcodeScanner
+          onBarCodeRead={this._onBarCodeRead}
+          style={{ flex: 1 }}
+          torchMode={this.state.torchMode}
+          cameraType={this.state.cameraType} />);
   },
-    _onBarCodeRead(e) {
-	console.log(e);
-    }
+  _onBarCodeRead(e) {
+    console.log(e);
+  }
 });
 
 var styles = StyleSheet.create({
