@@ -10,8 +10,14 @@ var {
   StyleSheet,
   Text,
   View,
+  Image,
+  TextInput,
+  TouchableHighlight,
 } = React;
 var BarcodeScanner = require('react-native-barcodescanner');
+
+var ING_ORANGE = '#e66500';
+var ING_BLUE = '063e93';
 
 var HomeBankPay = React.createClass({
   getInitialState: function() {
@@ -43,15 +49,40 @@ var ReadQRCode = React.createClass({
     };
   },
   render: function() {
-      return (
-	      <BarcodeScanner
-          onBarCodeRead={this._onBarCodeRead}
-          style={{ flex: 1 }}
-          torchMode={this.state.torchMode}
-          cameraType={this.state.cameraType} />);
-  },
-  _onBarCodeRead(e) {
-    console.log(e);
+    return (
+      <View style={styles.container}>
+        <Image
+          style={styles.logo}
+          source={require("./img/lion.png")}
+        />
+        <Text style={styles.title}>
+          Direct PayING
+        </Text>
+        <TextInput
+          style={styles.nameInput}
+          onChangeText={(text) => this.setState({welcomeText: text})}
+          placeholder='Name'
+          autoCapitalize='words'
+          onSubmitEditing={(event) => {
+            this.refs.passwordInput.focus();
+          }}
+          underlineColorAndroid={ING_ORANGE}
+        />
+        <TextInput
+          ref='passwordInput'
+          style={styles.passwordInput}
+          onChangeText={(text) => this.setState({welcomeText: text})}
+          secureTextEntry={true}
+          placeholder='Password'
+          underlineColorAndroid={ING_ORANGE}
+        />
+        <TouchableHighlight onPress={this._onPressButton} style={styles.highlight}>
+          <Text style={styles.button}>
+            Log in
+          </Text>
+      </TouchableHighlight>
+      </View>
+    );
   }
 });
 
@@ -60,18 +91,39 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'white',
   },
-  welcome: {
-    fontSize: 20,
+  logo: {
+    resizeMode: 'contain',
+    height: 100,
+    marginTop: -80,
+    // marginBottom: 5,
+  },
+  title: {
+    fontSize: 23,
     textAlign: 'center',
-    margin: 10,
+    margin: 35,
+    color: ING_BLUE,
   },
-  instructions: {
+  nameInput: {
+    height: 40,
+    width: 250,
+    // textAlign: 'center',
+  },
+  passwordInput: {
+    height: 40,
+    width: 250,
+  },
+  button: {
+    backgroundColor: ING_ORANGE,
+    color: 'white',
+    padding: 1.5,
+    width: 125,
     textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
   },
+  highlight: {
+    margin: 15,
+  }
 });
 
 AppRegistry.registerComponent('HomeBankPay', () => HomeBankPay);
