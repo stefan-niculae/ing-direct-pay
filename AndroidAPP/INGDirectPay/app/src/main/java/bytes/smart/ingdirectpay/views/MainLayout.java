@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import bytes.smart.ingdirectpay.R;
@@ -13,6 +14,7 @@ import bytes.smart.ingdirectpay.interfaces.mvc.OnChangeListener;
 import bytes.smart.ingdirectpay.models.MainModel;
 import bytes.smart.ingdirectpay.models.TransactionModel;
 import bytes.smart.ingdirectpay.utils.ViewUtils;
+import bytes.smart.ingdirectpay.views.adapters.PaymentsAdapter;
 
 /**
  * Created by alexbuicescu on 20.11.2015.
@@ -23,6 +25,9 @@ public class MainLayout extends RelativeLayout implements OnChangeListener<MainM
 
     private MainModel model;
     private ViewListener viewListener;
+
+    private ListView paymentsListView;
+    private PaymentsAdapter paymentsAdapter;
 
     private FloatingActionButton addTransactionButton;
 
@@ -61,6 +66,8 @@ public class MainLayout extends RelativeLayout implements OnChangeListener<MainM
                 getViewListener().onAddTransactionClicked();
             }
         });
+
+        paymentsListView = (ListView) findViewById(R.id.activity_main_payments_listview);
     }
 
     private void initToolbar() {
@@ -70,7 +77,16 @@ public class MainLayout extends RelativeLayout implements OnChangeListener<MainM
     }
 
     private void updateView() {
-
+        if(paymentsAdapter == null)
+        {
+            paymentsAdapter = new PaymentsAdapter(getContext(), getModel().getPayments());
+            paymentsListView.setAdapter(paymentsAdapter);
+        }
+        else
+        {
+            paymentsAdapter.setCurrentItems(getModel().getPayments());
+            paymentsAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

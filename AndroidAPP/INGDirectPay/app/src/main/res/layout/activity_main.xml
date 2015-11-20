@@ -21,6 +21,13 @@
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
+
+    <ListView
+        android:id="@+id/activity_main_payments_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/activity_main_appbarlayout"/>
+
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/activity_main_snackbar"
         android:layout_width="match_parent"

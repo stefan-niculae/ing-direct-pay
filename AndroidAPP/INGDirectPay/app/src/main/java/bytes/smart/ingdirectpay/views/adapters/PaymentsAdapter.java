@@ -9,7 +9,9 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import bytes.smart.ingdirectpay.R;
@@ -52,17 +54,25 @@ public class PaymentsAdapter extends BaseAdapter {
         ViewHolder holder;
 
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.row_account, viewGroup, false);
+            view = layoutInflater.inflate(R.layout.row_payment, viewGroup, false);
 
             holder = new ViewHolder();
-            holder.accountTextView = (TextView) view.findViewById(R.id.row_account_textview);
+            holder.accountTextView = (TextView) view.findViewById(R.id.row_payment_account_textview);
+            holder.dateTextView = (TextView) view.findViewById(R.id.row_payment_date_textview);
+            holder.sumTextView = (TextView) view.findViewById(R.id.row_payment_sum_textview);
+            holder.explanationTextView = (TextView) view.findViewById(R.id.row_payment_explanation_textview);
+            holder.statusTextView = (TextView) view.findViewById(R.id.row_payment_status_textview);
 
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
 
-        holder.accountTextView.setText(currentItems.get(i).getAccount() + "");
+        holder.accountTextView.setText(currentItems.get(i).getAccount());
+        holder.dateTextView.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(currentItems.get(i).getDate())));
+        holder.sumTextView.setText(currentItems.get(i).getSum() + "");
+        holder.explanationTextView.setText(currentItems.get(i).getExplanation());
+        holder.statusTextView.setText(currentItems.get(i).getStatus());
 
         return view;
     }
@@ -76,6 +86,7 @@ public class PaymentsAdapter extends BaseAdapter {
         TextView dateTextView;
         TextView sumTextView;
         TextView explanationTextView;
+        TextView statusTextView;
     }
 }
 
