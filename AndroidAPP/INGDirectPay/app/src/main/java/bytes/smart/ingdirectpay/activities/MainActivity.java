@@ -1,6 +1,7 @@
 package bytes.smart.ingdirectpay.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private MainLayout.ViewListener viewListener = new MainLayout.ViewListener() {
         @Override
         public void onAddTransactionClicked() {
-
+            Intent intent = new Intent(activity, TransactionActivity.class);
+            startActivity(intent);
         }
 
         @Override

@@ -1,9 +1,11 @@
 package bytes.smart.ingdirectpay.views;
 
 import android.content.Context;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import bytes.smart.ingdirectpay.R;
@@ -21,6 +23,8 @@ public class MainLayout extends RelativeLayout implements OnChangeListener<MainM
 
     private MainModel model;
     private ViewListener viewListener;
+
+    private FloatingActionButton addTransactionButton;
 
     private Toolbar toolbar;
 
@@ -50,7 +54,13 @@ public class MainLayout extends RelativeLayout implements OnChangeListener<MainM
 
     private void initLayout()
     {
-
+        addTransactionButton = (FloatingActionButton) findViewById(R.id.activity_main_add_transaction_button);
+        addTransactionButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getViewListener().onAddTransactionClicked();
+            }
+        });
     }
 
     private void initToolbar() {

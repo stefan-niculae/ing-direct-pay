@@ -52,13 +52,13 @@
         <item name="android:colorButtonNormal">@color/colorAccent</item>
     </style>
 
-    <style name="FloatingWaveColorActionButtonLight" parent="Material.Drawable.Ripple.Wave.Light">
-        <item name="rd_rippleColor">@color/colorAccentDark</item>
-        <item name="fab_backgroundColor">@color/colorAccent</item>
-        <item name="fab_elevation">3dp</item>
-        <!--<item name="fab_iconLineMorphing">@style/FloatingActionButtonIcon</item>-->
-        <item name="rd_delayClick">none</item>
-        <item name="rd_rippleAnimDuration">200</item>
-    </style>
+    <!--<style name="FloatingWaveColorActionButtonLight" parent="Material.Drawable.Ripple.Wave.Light">-->
+        <!--<item name="rd_rippleColor">@color/colorAccentDark</item>-->
+        <!--<item name="fab_backgroundColor">@color/colorAccent</item>-->
+        <!--<item name="fab_elevation">3dp</item>-->
+        <!--&lt;!&ndash;<item name="fab_iconLineMorphing">@style/FloatingActionButtonIcon</item>&ndash;&gt;-->
+        <!--<item name="rd_delayClick">none</item>-->
+        <!--<item name="rd_rippleAnimDuration">200</item>-->
+    <!--</style>-->
 
 </resources>
