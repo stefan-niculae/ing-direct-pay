@@ -14,7 +14,7 @@ public class IBANUtils {
             IbanUtil.validate(iban);
             return true;
             // valid
-        } catch (IbanFormatException e) {
+        } catch (Exception e) {
             // invalid
             e.printStackTrace();
             return false;

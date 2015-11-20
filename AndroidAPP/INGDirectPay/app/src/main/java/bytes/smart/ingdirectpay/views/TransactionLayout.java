@@ -76,14 +76,39 @@ public class TransactionLayout extends RelativeLayout implements OnChangeListene
                 updateView();
             }
         });
+
         accountsAdapter = new AccountsAdapter(getContext(), AccountsManager.getAccountsManager().getAccounts());
         accountAutoCompleteTextView.setAdapter(accountsAdapter);
+        accountAutoCompleteTextView.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    validateAccount();
+                }
+            }
+        });
 
         sumTextInputLayout = (TextInputLayout) findViewById(R.id.activity_transaction_sum_textinputlayout);
         sumEditText = (EditText) findViewById(R.id.activity_transaction_sum_edittext);
+        sumEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    validateSum();
+                }
+            }
+        });
 
         explanationTextInputLayout = (TextInputLayout) findViewById(R.id.activity_transaction_explanation_textinputlayout);
         explanationEditText = (EditText) findViewById(R.id.activity_transaction_explanation_edittext);
+        explanationEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    validateExplanation();
+                }
+            }
+        });
     }
 
     private void initToolbar() {
@@ -110,15 +135,37 @@ public class TransactionLayout extends RelativeLayout implements OnChangeListene
     public boolean validateInput() {
         boolean ok = true;
 
+        if(!validateAccount() || !validateSum() || !validateExplanation())
+        {
+            ok = false;
+        }
+
+        return ok;
+    }
+
+    private boolean validateAccount()
+    {
+        accountAutoCompleteTextInputLayout.setError(null);
+        boolean ok = true;
+
         if (getAccount().length() == 0) {
             ok = false;
             accountAutoCompleteTextInputLayout.setError("Can't be empty!");
         }
         else {
             if(!IBANUtils.validateIBAN(getAccount())){
+                ok = false;
                 accountAutoCompleteTextInputLayout.setError("IBAN is invalid!");
             }
         }
+
+        return ok;
+    }
+
+    private boolean validateSum()
+    {
+        sumTextInputLayout.setError(null);
+        boolean ok = true;
 
         if (getSum().length() == 0) {
             ok = false;
@@ -127,13 +174,23 @@ public class TransactionLayout extends RelativeLayout implements OnChangeListene
             try {
                 double sum = Double.parseDouble(getSum());
                 if (sum <= 0) {
+                    ok = false;
                     sumTextInputLayout.setError("Sum can't be empty!");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                ok = false;
                 sumTextInputLayout.setError("Number not valid!");
             }
         }
+
+        return ok;
+    }
+
+    private boolean validateExplanation()
+    {
+        boolean ok = true;
+        explanationTextInputLayout.setError(null);
 
         if (getExplanation().length() == 0) {
             ok = false;

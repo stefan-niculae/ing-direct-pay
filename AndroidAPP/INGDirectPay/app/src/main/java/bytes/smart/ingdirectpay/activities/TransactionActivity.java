@@ -95,6 +95,13 @@ public class TransactionActivity extends AppCompatActivity {
             return true;
         }
 
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.home) {
+//            viewListener.onSettingsClicked();
+            onBackPressed();
+            return true;
+        }
+
         if (id == R.id.menu_new_transaction_done_action)
         {
             viewListener.onDoneButtonClicked();
