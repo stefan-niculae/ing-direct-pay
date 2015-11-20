@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccentLight">#FF70b1</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+
+
+    <color name="custom_color_1">#C41915</color>
+    <color name="custom_color_2">#CA4318</color>
+    <color name="custom_color_3">#EC6C20</color>
+    <color name="custom_color_4">#FD8A26</color>
+    <color name="custom_color_5">#9ACA28</color>
+    <color name="custom_color_6">#C8B654</color>
+    <color name="custom_color_7">#C79C38</color>
+    <color name="custom_color_8">#CA7620</color>
+    <color name="custom_color_9">#87B043</color>
+    <color name="custom_color_10">#53A527</color>
+    <color name="custom_color_11">#67971B</color>
+    <color name="custom_color_12">#13874B</color>
+    <color name="custom_color_13">#20AA66</color>
+    <color name="custom_color_14">#66B393</color>
+    <color name="custom_color_15">#1897A6</color>
+    <color name="custom_color_16">#70B3B8</color>
+    <color name="custom_color_17">#3CB6E3</color>
+    <color name="custom_color_18">#199ACA</color>
+    <color name="custom_color_19">#1993E7</color>
+    <color name="custom_color_20">#1789CE</color>
+    <color name="custom_color_21">#8266C9</color>
+    <color name="custom_color_22">#754CB2</color>
+    <color name="custom_color_23">#6568C9</color>
+    <color name="custom_color_24">#1A57B6</color>
+    <color name="custom_color_25">#A969CA</color>
+    <color name="custom_color_26">#983BCA</color>
+    <color name="custom_color_27">#9D44B6</color>
+    <color name="custom_color_28">#FC464B</color>
+    <color name="custom_color_29">#A29497</color>
+    <color name="custom_color_30">#A37C82</color>
+    <color name="custom_color_31">#C35E7E</color>
+    <color name="custom_color_32">#E62565</color>
+    <color name="custom_color_33">#424242</color>
+    <color name="custom_color_34">#333333</color>
+
+    <color name="custom_color_35">#ffb200</color>
+    <color name="custom_color_36">#ffaa00</color>
+    <color name="custom_color_37">#ff8e00</color>
+    <color name="custom_color_38">#ffb200</color>
+    <color name="custom_color_39">#bfc932</color>
+    <color name="custom_color_40">#aeb435</color>
+    <color name="custom_color_41">#9c9c36</color>
+    <color name="custom_color_42">#817616</color>
+    <color name="custom_color_43">#757575</color>
+
+</resources>

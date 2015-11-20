@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="custom_colors_array">
+        <item>@color/custom_color_1</item>
+        <item>@color/custom_color_2</item>
+        <item>@color/custom_color_3</item>
+        <item>@color/custom_color_4</item>
+        <item>@color/custom_color_5</item>
+        <item>@color/custom_color_6</item>
+        <item>@color/custom_color_7</item>
+        <item>@color/custom_color_8</item>
+        <item>@color/custom_color_9</item>
+        <item>@color/custom_color_10</item>
+        <item>@color/custom_color_11</item>
+        <item>@color/custom_color_12</item>
+        <item>@color/custom_color_13</item>
+        <item>@color/custom_color_14</item>
+        <item>@color/custom_color_15</item>
+        <item>@color/custom_color_16</item>
+        <item>@color/custom_color_17</item>
+        <item>@color/custom_color_18</item>
+        <item>@color/custom_color_19</item>
+        <item>@color/custom_color_20</item>
+        <item>@color/custom_color_21</item>
+        <item>@color/custom_color_22</item>
+        <item>@color/custom_color_23</item>
+        <item>@color/custom_color_24</item>
+        <item>@color/custom_color_25</item>
+        <item>@color/custom_color_26</item>
+        <item>@color/custom_color_27</item>
+        <item>@color/custom_color_28</item>
+        <item>@color/custom_color_29</item>
+        <item>@color/custom_color_30</item>
+        <item>@color/custom_color_31</item>
+        <item>@color/custom_color_32</item>
+        <item>@color/custom_color_33</item>
+        <item>@color/custom_color_34</item>
+        <item>@color/custom_color_35</item>
+        <item>@color/custom_color_36</item>
+        <item>@color/custom_color_37</item>
+        <item>@color/custom_color_38</item>
+        <item>@color/custom_color_39</item>
+        <item>@color/custom_color_40</item>
+        <item>@color/custom_color_41</item>
+        <item>@color/custom_color_42</item>
+        <item>@color/custom_color_43</item>
+    </array>
+
+</resources>
