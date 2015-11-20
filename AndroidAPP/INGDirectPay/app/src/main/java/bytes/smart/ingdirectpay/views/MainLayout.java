@@ -9,9 +9,14 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+
 import bytes.smart.ingdirectpay.R;
 import bytes.smart.ingdirectpay.interfaces.mvc.OnChangeListener;
 import bytes.smart.ingdirectpay.models.MainModel;
+import bytes.smart.ingdirectpay.models.POJO.PaymentRequest;
 import bytes.smart.ingdirectpay.models.TransactionModel;
 import bytes.smart.ingdirectpay.utils.ViewUtils;
 import bytes.smart.ingdirectpay.views.adapters.PaymentsAdapter;
@@ -77,6 +82,22 @@ public class MainLayout extends RelativeLayout implements OnChangeListener<MainM
     }
 
     private void updateView() {
+        Collections.sort(getModel().getPayments(), new Comparator<PaymentRequest>() {
+            @Override
+            public int compare(PaymentRequest lhs, PaymentRequest rhs) {
+                if(lhs.getDate() > rhs.getDate())
+                {
+                    return -1;
+                }
+                else
+                if(lhs.getDate() < rhs.getDate())
+                {
+                    return 1;
+                }
+                return 0;
+            }
+        });
+
         if(paymentsAdapter == null)
         {
             paymentsAdapter = new PaymentsAdapter(getContext(), getModel().getPayments());

@@ -9,17 +9,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
+import java.util.ArrayList;
+
 import bytes.smart.ingdirectpay.R;
 import bytes.smart.ingdirectpay.models.MainModel;
+import bytes.smart.ingdirectpay.models.POJO.PaymentRequest;
+import bytes.smart.ingdirectpay.models.POJO.User;
 import bytes.smart.ingdirectpay.models.TransactionModel;
 import bytes.smart.ingdirectpay.views.MainLayout;
 import bytes.smart.ingdirectpay.views.TransactionLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String TAG = "TransactionActivity";
+    private final String TAG = "MainActivity";
 
     private Activity activity;
+
+    private Firebase myFirebaseRef;
+    private final String firebaseId = "id1";
 
     private MainModel model;
     private MainLayout layout;
@@ -43,9 +55,31 @@ public class MainActivity extends AppCompatActivity {
         activity = this;
 
         initModel();
+
+        initFirebase();
+
         initLayout();
 
         setContentView(layout);
+    }
+
+    private void initFirebase()
+    {
+        Firebase.setAndroidContext(this);
+        myFirebaseRef = new Firebase("https://directpaying.firebaseio.com/users").child(firebaseId);
+        myFirebaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                model.setPayments(new ArrayList<>(user.getTransactions().values()), true);
+                Log.i(TAG, user.toString());
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
     private void initLayout()

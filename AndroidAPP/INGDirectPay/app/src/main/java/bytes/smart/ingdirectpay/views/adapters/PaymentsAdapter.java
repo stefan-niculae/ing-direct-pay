@@ -69,7 +69,7 @@ public class PaymentsAdapter extends BaseAdapter {
         }
 
         holder.accountTextView.setText(currentItems.get(i).getAccount());
-        holder.dateTextView.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(currentItems.get(i).getDate())));
+        holder.dateTextView.setText(new SimpleDateFormat("HH:mm dd/MM/yyyy").format(new Date(currentItems.get(i).getDate())));
         holder.sumTextView.setText(currentItems.get(i).getSum() + "");
         holder.explanationTextView.setText(currentItems.get(i).getExplanation());
         holder.statusTextView.setText(currentItems.get(i).getStatus());

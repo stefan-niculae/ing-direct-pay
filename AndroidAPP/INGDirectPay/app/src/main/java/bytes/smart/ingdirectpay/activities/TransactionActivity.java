@@ -3,15 +3,23 @@ package bytes.smart.ingdirectpay.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
 import org.iban4j.IbanFormatException;
 import org.iban4j.IbanUtil;
 
 import bytes.smart.ingdirectpay.R;
+import bytes.smart.ingdirectpay.models.POJO.PaymentRequest;
+import bytes.smart.ingdirectpay.models.POJO.User;
 import bytes.smart.ingdirectpay.models.TransactionModel;
 import bytes.smart.ingdirectpay.views.TransactionLayout;
 
@@ -21,6 +29,9 @@ public class TransactionActivity extends AppCompatActivity {
 
     private Activity activity;
 
+    private Firebase myFirebaseRef;
+    private final String firebaseId = "id1";
+
     private TransactionModel model;
     private TransactionLayout layout;
     private TransactionLayout.ViewListener viewListener = new TransactionLayout.ViewListener() {
@@ -29,6 +40,16 @@ public class TransactionActivity extends AppCompatActivity {
             if(layout.validateInput())
             {
                 saveDataToModel();
+
+                PaymentRequest paymentRequest = new PaymentRequest();
+                paymentRequest.setAccount(model.getAccount());
+                paymentRequest.setStatus("pending");
+                paymentRequest.setExplanation(model.getExplanation());
+                paymentRequest.setSum(model.getSum());
+                paymentRequest.setDate(System.currentTimeMillis());
+                myFirebaseRef.push().setValue(paymentRequest);
+
+                activity.finish();
             }
             else{
                 Toast.makeText(activity, "Validating input failed!", Toast.LENGTH_LONG).show();
@@ -58,9 +79,18 @@ public class TransactionActivity extends AppCompatActivity {
         activity = this;
 
         initModel();
+
+        initFirebase();
+
         initLayout();
 
         setContentView(layout);
+    }
+
+    private void initFirebase()
+    {
+        Firebase.setAndroidContext(this);
+        myFirebaseRef = new Firebase("https://directpaying.firebaseio.com/users").child(firebaseId).child("transactions");
     }
 
     private void initLayout()

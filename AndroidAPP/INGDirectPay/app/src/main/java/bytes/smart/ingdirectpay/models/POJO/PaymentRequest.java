@@ -8,7 +8,7 @@ public class PaymentRequest {
     private String account;
     private double sum;
     private String explanation;
-    private String code;
+//    private String code;
     private long date;
     /**
      * possible values: pending, accepted, rejected
@@ -39,13 +39,13 @@ public class PaymentRequest {
         this.explanation = explanation;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
+//    public String getCode() {
+//        return code;
+//    }
+//
+//    public void setCode(String code) {
+//        this.code = code;
+//    }
 
     public long getDate() {
         return date;
@@ -61,5 +61,13 @@ public class PaymentRequest {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString()
+    {
+        String response = getAccount() + " " + getSum() + " " + getExplanation() + " " + getStatus() + " " + getDate();
+
+        return response;
     }
 }
