@@ -25,10 +25,14 @@ var HomeBankPay = React.createClass({
       currentView: "login"
     }
   },
+  navigateToQrCodeReading: function() {
+    this.setState({currentView: "readQrCode"});
+  },
   login: function() {
-    return <View style={styles.container}>
-        <Text style={styles.welcome}>Home Bank with Direct Pay</Text>
-      </View>;
+    return (
+      <TouchableHighlight onPress={this.navigateToQrCodeReading} style={styles.container}>
+          <Text style={styles.welcome}>Home Bank with Direct Pay</Text>
+      </TouchableHighlight>);
   },
   readQrCode: function() {
     return <ReadQRCode/>;
