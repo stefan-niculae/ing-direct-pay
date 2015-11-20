@@ -5,6 +5,8 @@
 'use strict';
 
 var React = require('react-native');
+var MainPage = require('./MainPage.js');
+
 var {
   AppRegistry,
   StyleSheet,
@@ -32,8 +34,14 @@ var HomeBankPay = React.createClass({
   navigateToPaymentForm: function(qrCode){
     this.setState({currentView: "paymentForm", qrCode: qrCode});
   },
+  navigateToMainPage: function() {
+    this.setState({currentView: "mainPage"});
+  },
   login: function() {
-    return <LoginPage navigateToQrCodeReading={this.navigateToQrCodeReading}/>;
+    return <LoginPage navigateToQrCodeReading={this.navigateToMainPage}/>;
+  },
+  mainPage: function() {
+    return <MainPage navigateToQrCodeReading={this.navigateToQrCodeReading}/>
   },
   readQrCode: function() {
     return <ReadQRCode navigateToPaymentForm={this.navigateToPaymentForm}/>;
