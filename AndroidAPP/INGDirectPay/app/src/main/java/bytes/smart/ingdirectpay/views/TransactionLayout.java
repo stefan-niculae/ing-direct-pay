@@ -18,6 +18,7 @@ import bytes.smart.ingdirectpay.models.TransactionModel;
 import bytes.smart.ingdirectpay.utils.IBANUtils;
 import bytes.smart.ingdirectpay.utils.StringUtils;
 import bytes.smart.ingdirectpay.utils.ViewUtils;
+import bytes.smart.ingdirectpay.views.adapters.AccountsAdapter;
 
 /**
  * Created by alexbuicescu on 20.11.2015.
@@ -104,7 +105,7 @@ public class TransactionLayout extends RelativeLayout implements OnChangeListene
         explanationEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
+                if (!hasFocus) {
                     validateExplanation();
                 }
             }
@@ -135,7 +136,15 @@ public class TransactionLayout extends RelativeLayout implements OnChangeListene
     public boolean validateInput() {
         boolean ok = true;
 
-        if(!validateAccount() || !validateSum() || !validateExplanation())
+        if(!validateAccount())
+        {
+            ok = false;
+        }
+        if(!validateSum())
+        {
+            ok = false;
+        }
+        if(!validateExplanation())
         {
             ok = false;
         }

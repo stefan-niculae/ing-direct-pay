@@ -1,4 +1,4 @@
-package bytes.smart.ingdirectpay.views;
+package bytes.smart.ingdirectpay.views.adapters;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;

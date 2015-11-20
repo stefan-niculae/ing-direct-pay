@@ -90,9 +90,10 @@ public class TransactionActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.home) {
+        if (id == android.R.id.home) {
 //            viewListener.onSettingsClicked();
             onBackPressed();
+            return true;
         }
 
         //noinspection SimplifiableIfStatement
