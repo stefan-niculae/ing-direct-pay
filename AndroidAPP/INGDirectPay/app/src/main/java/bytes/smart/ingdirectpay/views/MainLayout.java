@@ -48,6 +48,7 @@ public class MainLayout extends RelativeLayout implements OnChangeListener<MainM
     private ListView paymentsListView;
     private PaymentsAdapter paymentsAdapter;
 
+    private LinearLayout loadingLinearLayout;
     private FloatingActionButton addTransactionButton;
 
     private Toolbar toolbar;
@@ -93,6 +94,9 @@ public class MainLayout extends RelativeLayout implements OnChangeListener<MainM
                 showAddSongDialog(position);
             }
         });
+
+        loadingLinearLayout = (LinearLayout) findViewById(R.id.activity_main_loading_layout);
+        loadingLinearLayout.setVisibility(VISIBLE);
     }
 
     private void initToolbar() {
@@ -112,6 +116,7 @@ public class MainLayout extends RelativeLayout implements OnChangeListener<MainM
         {
             paymentsAdapter.setCurrentItems(getModel().getPayments());
             paymentsAdapter.notifyDataSetChanged();
+            loadingLinearLayout.setVisibility(GONE);
         }
     }
 
