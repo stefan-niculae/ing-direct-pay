@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -62,6 +63,8 @@ public class PaymentsAdapter extends BaseAdapter {
             holder.sumTextView = (TextView) view.findViewById(R.id.row_payment_sum_textview);
             holder.explanationTextView = (TextView) view.findViewById(R.id.row_payment_explanation_textview);
             holder.statusTextView = (TextView) view.findViewById(R.id.row_payment_status_textview);
+            holder.nameInitialsTextView = (TextView) view.findViewById(R.id.row_payment_avatar_textview);
+            holder.avatarImageView = (ImageView) view.findViewById(R.id.row_payment_avatar_imageview);
 
             view.setTag(holder);
         } else {
@@ -73,6 +76,28 @@ public class PaymentsAdapter extends BaseAdapter {
         holder.sumTextView.setText(currentItems.get(i).getSum() + "");
         holder.explanationTextView.setText(currentItems.get(i).getExplanation());
         holder.statusTextView.setText(currentItems.get(i).getStatus());
+        if(currentItems.get(i).getNamePayer() != null && currentItems.get(i).getNamePayer().length() > 0)
+        {
+            holder.nameInitialsTextView.setText(currentItems.get(i).getNamePayer().charAt(0) + "");
+        }
+        else
+        {
+            holder.nameInitialsTextView.setText("A");
+        }
+        if(currentItems.get(i).getStatus().equalsIgnoreCase("PENDING"))
+        {
+            holder.avatarImageView.setColorFilter(context.getResources().getColor(R.color.custom_color_4));
+        }
+        else
+        if(currentItems.get(i).getStatus().equalsIgnoreCase("ACCEPTED"))
+        {
+            holder.avatarImageView.setColorFilter(context.getResources().getColor(R.color.custom_color_10));
+        }
+        else
+        if(currentItems.get(i).getStatus().equalsIgnoreCase("REJECTED"))
+        {
+            holder.avatarImageView.setColorFilter(context.getResources().getColor(R.color.custom_color_2));
+        }
 
         return view;
     }
@@ -87,6 +112,8 @@ public class PaymentsAdapter extends BaseAdapter {
         TextView sumTextView;
         TextView explanationTextView;
         TextView statusTextView;
+        TextView nameInitialsTextView;
+        ImageView avatarImageView;
     }
 }
 

@@ -15,6 +15,7 @@ public class PaymentRequest {
      */
     private String status;
     private String transactionId;
+    private String namePayer;
 
     public String getAccount() {
         return account;
@@ -94,5 +95,13 @@ public class PaymentRequest {
             }
         }
         return false;
+    }
+
+    public String getNamePayer() {
+        return namePayer;
+    }
+
+    public void setNamePayer(String namePayer) {
+        this.namePayer = namePayer;
     }
 }

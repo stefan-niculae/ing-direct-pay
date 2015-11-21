@@ -26,7 +26,9 @@
         android:id="@+id/activity_main_payments_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/activity_main_appbarlayout"/>
+        android:layout_below="@+id/activity_main_appbarlayout"
+        android:divider="@drawable/divider_accounts"
+        android:dividerHeight="1px"/>
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/activity_main_snackbar"

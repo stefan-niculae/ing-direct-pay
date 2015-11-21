@@ -3,56 +3,86 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/row_payment_explanation_textview"
+
+    <RelativeLayout
+        android:id="@+id/row_payment_avatar_relativelayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/row_payment_avatar_imageview"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="16dp"
+            android:focusable="false"
+            android:src="@drawable/shape_color"
+            android:focusableInTouchMode="false"/>
+        <TextView
+            android:id="@+id/row_payment_avatar_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="A"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:singleLine="true"
-        android:text="Payment for taxi"
-        android:ellipsize="end"/>
-    <TextView
-        android:id="@+id/row_payment_account_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/row_payment_explanation_textview"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:singleLine="true"
-        android:text="ASDSADWQE213213"
-        android:ellipsize="end"/>
-    <TextView
-        android:id="@+id/row_payment_sum_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:singleLine="true"
-        android:text="23 $"
-        android:ellipsize="end"/>
-    <TextView
-        android:id="@+id/row_payment_date_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/row_payment_sum_textview"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:singleLine="true"
-        android:text="25/07/2015"
-        android:ellipsize="end"/>
-    <TextView
-        android:id="@+id/row_payment_status_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/row_payment_date_textview"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:singleLine="true"
-        android:text="Pending"
-        android:ellipsize="end"/>
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/row_payment_avatar_relativelayout">
+
+        <TextView
+            android:id="@+id/row_payment_explanation_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:singleLine="true"
+            android:text="Payment for taxi"
+            android:ellipsize="end"/>
+        <TextView
+            android:id="@+id/row_payment_account_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/row_payment_explanation_textview"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:singleLine="true"
+            android:text="ASDSADWQE213213"
+            android:ellipsize="end"/>
+        <TextView
+            android:id="@+id/row_payment_sum_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:singleLine="true"
+            android:text="23 $"
+            android:ellipsize="end"/>
+        <TextView
+            android:id="@+id/row_payment_date_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/row_payment_sum_textview"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:singleLine="true"
+            android:text="25/07/2015"
+            android:ellipsize="end"/>
+        <TextView
+            android:id="@+id/row_payment_status_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/row_payment_date_textview"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:singleLine="true"
+            android:text="Pending"
+            android:ellipsize="end"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>
