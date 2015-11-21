@@ -39,5 +39,10 @@ dependencies {
     compile 'org.iban4j:iban4j:3.1.0'
 
     compile 'com.firebase:firebase-client-android:2.4.1+'
+
+    compile "net.glxn.qrgen:android:2.0"
+
+    compile 'com.google.code.gson:gson:2.2.4'
+
 }
 

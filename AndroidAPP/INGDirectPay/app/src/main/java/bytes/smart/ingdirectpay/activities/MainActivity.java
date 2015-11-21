@@ -15,8 +15,11 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import bytes.smart.ingdirectpay.R;
+import bytes.smart.ingdirectpay.managers.AccountsManager;
 import bytes.smart.ingdirectpay.models.MainModel;
 import bytes.smart.ingdirectpay.models.POJO.PaymentRequest;
 import bytes.smart.ingdirectpay.models.POJO.User;
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private Activity activity;
 
     private Firebase myFirebaseRef;
-    private final String firebaseId = "id1";
+    public static final String firebaseId = "id1";
 
     private MainModel model;
     private MainLayout layout;
@@ -71,7 +74,34 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                model.setPayments(new ArrayList<>(user.getTransactions().values()), true);
+
+                ArrayList<PaymentRequest> paymentRequests = new ArrayList<>();
+                for(String key : user.getTransactions().keySet())
+                {
+                    user.getTransactions().get(key).setTransactionId(key);
+                    paymentRequests.add(user.getTransactions().get(key));
+                }
+
+                Collections.sort(paymentRequests, new Comparator<PaymentRequest>() {
+                    @Override
+                    public int compare(PaymentRequest lhs, PaymentRequest rhs) {
+                        if (lhs.getDate() > rhs.getDate()) {
+                            return -1;
+                        } else if (lhs.getDate() < rhs.getDate()) {
+                            return 1;
+                        }
+                        return 0;
+                    }
+                });
+
+                if(paymentRequests.size() - model.getPayments().size() == 1)
+                {
+                    model.setPayments(new ArrayList<>(paymentRequests), true);
+                    layout.showAddSongDialog(0);
+                }else{
+                    model.setPayments(new ArrayList<>(paymentRequests), true);
+                }
+                AccountsManager.getAccountsManager().setAccounts(paymentRequests);
                 Log.i(TAG, user.toString());
             }
 

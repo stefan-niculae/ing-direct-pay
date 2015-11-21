@@ -14,6 +14,7 @@ public class PaymentRequest {
      * possible values: pending, accepted, rejected
      */
     private String status;
+    private String transactionId;
 
     public String getAccount() {
         return account;
@@ -63,11 +64,35 @@ public class PaymentRequest {
         this.status = status;
     }
 
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
     @Override
     public String toString()
     {
-        String response = getAccount() + " " + getSum() + " " + getExplanation() + " " + getStatus() + " " + getDate();
+        String response = getAccount();
 
         return response;
+    }
+
+    @Override
+    public boolean equals(Object object)
+    {
+        if(object != null)
+        {
+            if(object instanceof PaymentRequest)
+            {
+                if(getAccount().equals(((PaymentRequest) object).getAccount()))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

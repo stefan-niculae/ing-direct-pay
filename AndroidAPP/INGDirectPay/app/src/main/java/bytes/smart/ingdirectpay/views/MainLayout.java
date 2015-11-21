@@ -1,23 +1,37 @@
 package bytes.smart.ingdirectpay.views;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+
+import com.google.gson.Gson;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
 import bytes.smart.ingdirectpay.R;
+import bytes.smart.ingdirectpay.activities.MainActivity;
 import bytes.smart.ingdirectpay.interfaces.mvc.OnChangeListener;
 import bytes.smart.ingdirectpay.models.MainModel;
 import bytes.smart.ingdirectpay.models.POJO.PaymentRequest;
+import bytes.smart.ingdirectpay.models.POJO.QRCode;
 import bytes.smart.ingdirectpay.models.TransactionModel;
+import bytes.smart.ingdirectpay.utils.QRCodeUtils;
+import bytes.smart.ingdirectpay.utils.StringUtils;
 import bytes.smart.ingdirectpay.utils.ViewUtils;
 import bytes.smart.ingdirectpay.views.adapters.PaymentsAdapter;
 
@@ -73,6 +87,12 @@ public class MainLayout extends RelativeLayout implements OnChangeListener<MainM
         });
 
         paymentsListView = (ListView) findViewById(R.id.activity_main_payments_listview);
+        paymentsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showAddSongDialog(position);
+            }
+        });
     }
 
     private void initToolbar() {
@@ -82,21 +102,6 @@ public class MainLayout extends RelativeLayout implements OnChangeListener<MainM
     }
 
     private void updateView() {
-        Collections.sort(getModel().getPayments(), new Comparator<PaymentRequest>() {
-            @Override
-            public int compare(PaymentRequest lhs, PaymentRequest rhs) {
-                if(lhs.getDate() > rhs.getDate())
-                {
-                    return -1;
-                }
-                else
-                if(lhs.getDate() < rhs.getDate())
-                {
-                    return 1;
-                }
-                return 0;
-            }
-        });
 
         if(paymentsAdapter == null)
         {
@@ -113,6 +118,30 @@ public class MainLayout extends RelativeLayout implements OnChangeListener<MainM
     @Override
     public void onChange() {
         updateView();
+    }
+
+    public void showAddSongDialog(int position)
+    {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        RelativeLayout dialogLayout = (RelativeLayout) View.inflate(getContext(), R.layout.dialog_qrcode, null);
+
+        final ImageView qrCodeImageView = (ImageView) dialogLayout.findViewById(R.id.dialog_qrcode_imageview);
+
+        alertDialog.setView(dialogLayout);
+        alertDialog.setTitle("Transaction QR code");
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        QRCode qrCode = new QRCode();
+        qrCode.setTransactionId(getModel().getPayments().get(position).getTransactionId());
+        qrCode.setUserId(MainActivity.firebaseId);
+
+        qrCodeImageView.setImageBitmap(QRCodeUtils.generateQRCode(new Gson().toJson(qrCode)));
+//                .setNegativeButton("Cancel", null);
+        alertDialog.create().show();
     }
 
     public MainModel getModel() {

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bytes.smart.ingdirectpay.R;
+import bytes.smart.ingdirectpay.models.POJO.PaymentRequest;
 
 /**
  * Created by Alexandru on 22-May-15.
@@ -22,12 +23,12 @@ public class AccountsAdapter extends BaseAdapter implements Filterable {
 
     private LayoutInflater layoutInflater;
 
-    private List<String> currentItems;
-    private List<String> initialItems;
+    private List<PaymentRequest> currentItems;
+    private List<PaymentRequest> initialItems;
 
     private Context context;
 
-    public AccountsAdapter(Context context, List<String> items) {
+    public AccountsAdapter(Context context, List<PaymentRequest> items) {
         this.layoutInflater = LayoutInflater.from(context);
         this.currentItems = items;
         this.initialItems = items;
@@ -64,12 +65,12 @@ public class AccountsAdapter extends BaseAdapter implements Filterable {
             holder = (ViewHolder) view.getTag();
         }
 
-        holder.accountTextView.setText(currentItems.get(i));
+        holder.accountTextView.setText(currentItems.get(i).getAccount());
 
         return view;
     }
 
-    public void setCurrentItems(List<String> items) {
+    public void setCurrentItems(List<PaymentRequest> items) {
         this.currentItems = items;
     }
 
@@ -83,7 +84,7 @@ public class AccountsAdapter extends BaseAdapter implements Filterable {
                 if (results.count == 0)
                     notifyDataSetInvalidated();
                 else {
-                    currentItems = (List<String>) results.values;
+                    currentItems = (List<PaymentRequest>) results.values;
                     notifyDataSetChanged();
                 }
             }
@@ -99,10 +100,10 @@ public class AccountsAdapter extends BaseAdapter implements Filterable {
                 }
                 else {
                     // We perform filtering operation
-                    List<String> nPlanetList = new ArrayList<>();
+                    List<PaymentRequest> nPlanetList = new ArrayList<>();
 
-                    for (String p : initialItems) {
-                        if (p.toUpperCase().contains(constraint.toString().toUpperCase()))
+                    for (PaymentRequest p : initialItems) {
+                        if (p.getAccount().toUpperCase().contains(constraint.toString().toUpperCase()))
                             nPlanetList.add(p);
                     }
 
