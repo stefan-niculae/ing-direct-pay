@@ -73,30 +73,32 @@ public class PaymentsAdapter extends BaseAdapter {
 
         holder.accountTextView.setText(currentItems.get(i).getAccount());
         holder.dateTextView.setText(new SimpleDateFormat("HH:mm dd/MM/yyyy").format(new Date(currentItems.get(i).getDate())));
-        holder.sumTextView.setText(currentItems.get(i).getSum() + "");
+        holder.sumTextView.setText(currentItems.get(i).getSum() + " $");
         holder.explanationTextView.setText(currentItems.get(i).getExplanation());
         holder.statusTextView.setText(currentItems.get(i).getStatus());
-        if(currentItems.get(i).getNamePayer() != null && currentItems.get(i).getNamePayer().length() > 0)
-        {
-            holder.nameInitialsTextView.setText(currentItems.get(i).getNamePayer().charAt(0) + "");
-        }
-        else
-        {
-            holder.nameInitialsTextView.setText("A");
-        }
+//        if(currentItems.get(i).getNamePayer() != null && currentItems.get(i).getNamePayer().length() > 0)
+//        {
+//            holder.nameInitialsTextView.setText(currentItems.get(i).getNamePayer().charAt(0) + "");
+//        }
+//        else
+//        {
+//        }
         if(currentItems.get(i).getStatus().equalsIgnoreCase("PENDING"))
         {
             holder.avatarImageView.setColorFilter(context.getResources().getColor(R.color.custom_color_4));
+            holder.nameInitialsTextView.setText("?");
         }
         else
         if(currentItems.get(i).getStatus().equalsIgnoreCase("ACCEPTED"))
         {
             holder.avatarImageView.setColorFilter(context.getResources().getColor(R.color.custom_color_10));
+            holder.nameInitialsTextView.setText("✓");
         }
         else
         if(currentItems.get(i).getStatus().equalsIgnoreCase("REJECTED"))
         {
             holder.avatarImageView.setColorFilter(context.getResources().getColor(R.color.custom_color_2));
+            holder.nameInitialsTextView.setText("X");
         }
 
         return view;
