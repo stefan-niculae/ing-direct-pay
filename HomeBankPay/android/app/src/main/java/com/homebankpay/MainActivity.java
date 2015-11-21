@@ -12,6 +12,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
 import com.eguma.barcodescanner.BarcodeScanner;
+import com.chymtt.reactnativedropdown.DropdownPackage;
 
 public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
 
@@ -28,7 +29,8 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
                 .setBundleAssetName("index.android.bundle")
                 .setJSMainModuleName("index.android")
                 .addPackage(new MainReactPackage())
-	        .addPackage(new BarcodeScanner())
+                .addPackage(new BarcodeScanner())
+                .addPackage(new DropdownPackage())
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build();

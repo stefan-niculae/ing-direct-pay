@@ -29,7 +29,8 @@ var ING_BLUE = '063e93';
 var HomeBankPay = React.createClass({
   getInitialState: function() {
     return {
-      currentView: "login"
+      // currentView: "login"
+      currentView: "paymentForm"
     }
   },
   navigateToQrCodeReading: function() {
