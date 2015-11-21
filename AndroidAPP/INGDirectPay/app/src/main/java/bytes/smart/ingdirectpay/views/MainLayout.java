@@ -141,7 +141,13 @@ public class MainLayout extends RelativeLayout implements OnChangeListener<MainM
 
         qrCodeImageView.setImageBitmap(QRCodeUtils.generateQRCode(new Gson().toJson(qrCode)));
 //                .setNegativeButton("Cancel", null);
-        alertDialog.create().show();
+        try {
+            alertDialog.create().show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public MainModel getModel() {

@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private boolean isPendingQR;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,8 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 User user = dataSnapshot.getValue(User.class);
 
                 ArrayList<PaymentRequest> paymentRequests = new ArrayList<>();
-                for(String key : user.getTransactions().keySet())
-                {
+                for (String key : user.getTransactions().keySet()) {
                     user.getTransactions().get(key).setTransactionId(key);
                     paymentRequests.add(user.getTransactions().get(key));
                 }
@@ -94,11 +95,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                if(paymentRequests.size() - model.getPayments().size() == 1)
-                {
+                if (paymentRequests.size() - model.getPayments().size() == 1) {
                     model.setPayments(new ArrayList<>(paymentRequests), true);
-                    layout.showAddSongDialog(0);
-                }else{
+                    isPendingQR = true;
+                } else {
                     model.setPayments(new ArrayList<>(paymentRequests), true);
                 }
                 AccountsManager.getAccountsManager().setAccounts(paymentRequests);
@@ -124,6 +124,15 @@ public class MainActivity extends AppCompatActivity {
         model = new MainModel();
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if(isPendingQR) {
+            layout.showAddSongDialog(0);
+            isPendingQR = false;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
