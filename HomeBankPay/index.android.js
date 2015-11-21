@@ -5,6 +5,10 @@
 'use strict';
 
 var React = require('react-native');
+var Firebase = require("firebase");
+
+var ProgressBar = require('ProgressBarAndroid');
+
 var MainPage = require('./MainPage.js');
 var PaymentForm = require('./PaymentForm');
 
@@ -119,22 +123,69 @@ var ReadQRCode = React.createClass({
         torchMode={this.state.torchMode}
         cameraType={this.state.cameraType} />);
   },
-  _onBarCodeRead(e) {
-    this.props.navigateToPaymentForm(e.data);
+  _onBarCodeRead: function(e) {
+    this.props.navigateToPaymentForm(JSON.parse(e.data));
   }
 });
 
 var PaymentFormFromQRCode = React.createClass({
   propTypes: {
-    qrCode: React.PropTypes.string.isRequired
+    // qrCode: React.PropTypes.string.isRequired
+  },
+  getInitialState: function() {
+    return {
+      userData: null,
+      transactionData: null,
+      currentView: "loading",
+    };
   },
   componentDidMount: function() {
+    console.log(this.props.qrCode);
+    var fbRef = new Firebase("https://directpaying.firebaseio.com/");
+    var userRef = fbRef.child("users").child(this.props.qrCode.userId);
+    var transactionRef = fbRef.child("users").child(this.props.qrCode.userId).child("transactions").child(this.props.qrCode.transactionId);
+    var userPromise = new Promise(function(resolve, reject) {
+      userRef.once("value", function(snap) {
+        console.log("u: " + snap.val());
+        resolve(snap.val());
+      });
+    });
+    var transactionPromise = new Promise(function(resolve, reject) {
+      transactionRef.once("value", function(snap) {
+        console.log("t: " + snap.val());
+        resolve(snap.val());
+      });
+    });
+
+    Promise.all([userPromise, transactionPromise]).then(function(data) {
+      console.log("back from fb");
+      this.setState({
+        userData: data[0],
+        transactionData: data[1],
+        currentView: "paymentForm",
+      });
+    }.bind(this));
   },
+
+  loading: function() {
+    console.log("loading");
+    return (
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <ProgressBar/>
+      </View>
+    );
+  },
+
+  paymentForm: function() {
+    console.log("paymentForm");
+    return (<PaymentForm receiverName={this.state.userData.name}
+      iban={this.state.transactionData.account}
+      amount={this.state.transactionData.sum}
+      details={this.state.transactionData.explanation} />);
+  },
+
   render: function() {
-    return <PaymentForm receiverName="nume"
-      iban="iban"
-      amount={100}
-      details="details"/>;
+    return this[this.state.currentView]();
   }
 });
 
