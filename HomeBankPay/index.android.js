@@ -29,8 +29,8 @@ var ING_BLUE = '063e93';
 var HomeBankPay = React.createClass({
   getInitialState: function() {
     return {
-      // currentView: "login"
-      currentView: "paymentForm"
+      currentView: "login"
+      // currentView: "paymentForm"
     }
   },
   navigateToQrCodeReading: function() {
@@ -42,6 +42,24 @@ var HomeBankPay = React.createClass({
   navigateToMainPage: function() {
     this.setState({currentView: "mainPage"});
   },
+  onAcceptPayment: function(userId, transactionId) {
+    var fbRef = new Firebase("https://directpaying.firebaseio.com/");
+    var transactionRef = fbRef.child("users").child(userId).child("transactions").child(transactionId);
+    transactionRef.update({
+      namePayer: "Andrei Stefan",
+      status: "accepted"
+    });
+    this.navigateToMainPage();
+  },
+  onRejectPayment: function(userId, transactionId) {
+    var fbRef = new Firebase("https://directpaying.firebaseio.com/");
+    var transactionRef = fbRef.child("users").child(userId).child("transactions").child(transactionId);
+    transactionRef.update({
+      namePayer: "Andrei Stefan",
+      status: "rejected"
+    });
+    this.navigateToMainPage();
+  },
   login: function() {
     return <LoginPage navigateToQrCodeReading={this.navigateToMainPage}/>;
   },
@@ -52,7 +70,10 @@ var HomeBankPay = React.createClass({
     return <ReadQRCode navigateToPaymentForm={this.navigateToPaymentForm}/>;
   },
   paymentForm: function() {
-    return <PaymentFormFromQRCode qrCode={this.state.qrCode}/>;
+    return <PaymentFormFromQRCode 
+      onAcceptPayment={this.onAcceptPayment}
+      onRejectPayment={this.onRejectPayment}
+      qrCode={this.state.qrCode} />;
   },
   render: function() {
     return this[this.state.currentView]();
@@ -179,7 +200,10 @@ var PaymentFormFromQRCode = React.createClass({
 
   paymentForm: function() {
     console.log("paymentForm");
-    return (<PaymentForm receiverName={this.state.userData.name}
+    return (<PaymentForm 
+      onAcceptPayment={() => this.props.onAcceptPayment(this.props.qrCode.userId, this.props.qrCode.transactionId)}
+      onRejectPayment={() => this.props.onRejectPayment(this.props.qrCode.userId, this.props.qrCode.transactionId)}
+      receiverName={this.state.userData.name}
       iban={this.state.transactionData.account}
       amount={this.state.transactionData.sum}
       details={this.state.transactionData.explanation} />);

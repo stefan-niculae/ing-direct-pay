@@ -70,12 +70,12 @@ var PaymentForm = React.createClass({
 
         <View style={{ height: 100 }}></View>
         <View style={styles.buttonLine}>
-          <TouchableHighlight onPress={this._onLogin} style={styles.highlight}>
+          <TouchableHighlight onPress={this.props.onRejectPayment} style={styles.highlight}>
             <Text style={styles.buttonCancel}>
               Reject
             </Text>
           </TouchableHighlight>
-          <TouchableHighlight onPress={this._onLogin} style={styles.highlight}>
+          <TouchableHighlight onPress={this.props.onAcceptPayment} style={styles.highlight}>
             <Text style={styles.buttonOk}>
               Accept
             </Text>
