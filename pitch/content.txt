@@ -1,0 +1,21 @@
+our team is here because we want to make payments easier
+
+jury: have you ever found yourself in this situation? we offer an even better alternative
+
+1 No cash
+    pos is not the solution
+
+2 easy for seller...
+    no contract, no registration
+    login with Facebook, enter amount
+    generate QR instantly
+    all banks
+    instant confirmation for seller on payment
+   
+3 ...means easy for for buyer
+    QR - disposable, printable (vs NFC)
+    No sensitive info exchanged (no card number on website etc)
+    integrated into home bank
+
+quick pizza delivery pay "play"
+   can be used for pizza, taxi rides, utility invoices, online stores, etc
